@@ -1,11 +1,19 @@
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 import tempfile
+import os
+
 
 def load_pdfs(uploaded_files):
     documents = []
+
     for file in uploaded_files:
-        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
             tmp.write(file.read())
-            loader = PyPDFLoader(tmp.name)
-            documents.extend(loader.load())
+            tmp_path = tmp.name
+
+        loader = PyPDFLoader(tmp_path)
+        documents.extend(loader.load())
+
+        os.remove(tmp_path)
+
     return documents

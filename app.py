@@ -1,19 +1,21 @@
 import streamlit as st
+from dotenv import load_dotenv
+
 from src.pdf_loader import load_pdfs
 from src.text_splitter import split_text
 from src.embeddings import get_embeddings
 from src.vector_store import create_vector_store
 from src.qa_chain import get_qa_chain
-from dotenv import load_dotenv
+
 load_dotenv()
 
-
 st.set_page_config(page_title="Chat with Multiple PDFs")
-
 st.title("📄 Chat with Multiple PDFs")
 
 uploaded_files = st.file_uploader(
-    "Upload PDF files", type=["pdf"], accept_multiple_files=True
+    "Upload PDF files",
+    type=["pdf"],
+    accept_multiple_files=True
 )
 
 if uploaded_files:
@@ -36,4 +38,3 @@ if uploaded_files:
             st.write(
                 f"- {doc.metadata.get('source', 'PDF')} | Page {doc.metadata.get('page', 'N/A')}"
             )
-

@@ -4,7 +4,7 @@ from src.retriever import get_retriever
 
 def get_qa_chain(vector_store):
     llm = ChatGroq(
-        model="llama3-8b-8192",
+        model="llama-3.1-8b-instant",
         temperature=0
     )
 
